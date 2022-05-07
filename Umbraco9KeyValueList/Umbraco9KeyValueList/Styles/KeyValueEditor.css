@@ -1,0 +1,9 @@
+﻿.key-value-editor li {
+    padding-bottom: 5px;
+    line-height: 29px;
+}
+
+.key-value-editor li input:first-of-type {
+    margin-left: 6px;
+    width: 60px;
+}

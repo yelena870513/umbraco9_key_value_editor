@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<umbPackage>
+  <files>
+    <file>
+      <guid>Umbraco9KeyValueList.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Umbraco9KeyValueList.dll</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditorController.js</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Controllers</orgPath>
+      <orgName>KeyValueEditorController.js</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditorConfigService.js</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Services</orgPath>
+      <orgName>KeyValueEditorConfigService.js</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditorDialogController.js</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Controllers</orgPath>
+      <orgName>KeyValueEditorDialogController.js</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditor.css</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Styles</orgPath>
+      <orgName>KeyValueEditor.css</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditorDialogView.html</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Views</orgPath>
+      <orgName>KeyValueEditorDialogView.html</orgName>
+    </file>
+    <file>
+      <guid>KeyValueEditorView.html</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList/Views</orgPath>
+      <orgName>KeyValueEditorView.html</orgName>
+    </file>
+    <file>
+      <guid>Package.manifest</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList</orgPath>
+      <orgName>Package.manifest</orgName>
+    </file>
+  </files>
+  <info>
+    <package>
+      <name>Umbraco9 Key Value List</name>
+      <version>1.1.0</version>
+      <license url="http://opensource.org/licenses/MIT">MIT License</license>
+      <requirements>
+        <major>9</major>
+        <minor>0</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Yelena Islen San Juan</name>
+    </author>
+    <readme><![CDATA[# Umbraco9KeyValueList
+
+The Key Value Editor package allows editors to create key value pair lists within instances of their document types. The editor can add, edit and delete pairs. The current version of this package is only compatible with version 7 of Umbraco.
+
+## Set Up
+
+Create a new data type using the RB.KeyValueEditor property editor. Add a new property to a document type using the new data type you have just created. Once you have created your new property, you should be able to add a list of key value pairs on any instances of your document type where the new data type exists.
+
+## Converter
+
+When using a property value on a template, add the following code to create a strongly type version of the key value editor property value.
+
+    @{
+        Dictionary<string, string> keyValuePairs = CurrentPage.GetPropertyValue<Dictionary<string, string>>("alias");
+    }
+
+Once converted, you will be able to choose single items and loop through each. For example:
+
+    @{
+        // Find a single key value pair based on key
+        var single = keyValuePairs.SingleOrDefault(k => k.Key.Equals("local"));
+
+        // Loop through each pair
+        foreach (var pair in keyValuePairs)
+        {
+            @pair.Key;
+            @pair.Value;
+        }
+    }
+#Inspired on
+[RB](https://bitbucket.org/rbdigital/umbraco-keyvalue-editor)
+## Contributing
+
+To raise a new bug, create an [issue](https://github.com/yelena870513/umbraco9_key_value_editor/issues) on the Bitbucket repository. To fix a bug or add new features or providers, fork the repository and send a [pull request](https://bitbucket.org/rbdigital/umbraco-keyvalue-editor/pull-requests) with your changes. Feel free to add ideas to the repository's [issues](https://github.com/yelena870513/umbraco9_key_value_editor/issues) list if you would to discuss anything related to the package.]]></readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+</umbPackage>

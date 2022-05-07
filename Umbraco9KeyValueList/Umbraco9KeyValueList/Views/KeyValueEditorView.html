@@ -1,0 +1,38 @@
+﻿<div ng-controller="KeyValueEditorController" class="key-value-editor">
+    <ng-form name="contentPickerForm">
+        <table class="unstyled">
+          <tr ng-show="model.config.useSortableHeaders">
+            <td></td>
+            <td><a href="javascript:void(0);" ng-click="order('key')" title="Sort by Key">Key</a> <i class="icon sortorder" ng-show="predicate === 'key'" ng-class="{'icon-arrow-up': !reverse , 'icon-arrow-down': reverse}"></i></td>
+            <td><a href="javascript:void(0);" ng-click="order('value')" title="Sort by Value">Value</a> <i class="icon sortorder" ng-show="predicate === 'value'" ng-class="{'icon-arrow-up': !reverse , 'icon-arrow-down': reverse}"></i></td>
+            <td><a href="javascript:void(0);" ng-click="order('description')" ng-show="model.config.useDescription" title="Sort by Description">Description</a> <i class="icon sortorder" ng-show="predicate === 'description'" ng-class="{'icon-arrow-up': !reverse , 'icon-arrow-down': reverse}"></i></td>
+          </tr>
+          <tr ng-show="model.config.useFilters">
+            <td></td>
+            <td><input type="text" ng-model="filters.key" placeholder="Filter on Key" /></td>
+            <td><input type="text" ng-model="filters.value" placeholder="Filter on Value" /></td>
+            <td ng-show="model.config.useDescription"><input type="text" ng-model="filters.description" placeholder="Filter on Description" /></td>
+          </tr>
+          <tr ng-repeat="item in model.value | filter:{key:filters.key} | filter:{value:filters.value} | filter:{description:filters.description}  | orderBy:predicate:reverse">
+            <td>
+                <i class="icon icon-edit blue"></i>
+                <a href="#" prevent-default="" ng-click="editKeyValue(item)">
+                    <localize key="general_edit" class="ng-isolate-scope ng-scope">Edit</localize></a>
+                <i class="icon icon-delete red"></i>
+                <a href="#" prevent-default="" ng-click="deleteKeyValue(item)">
+                    <localize key="general_delete" class="ng-isolate-scope ng-scope">Delete</localize></a>
+            </td>
+            <td><input type="text" disabled="disabled" title="{{item.key}}" ng-model="item.key" /></td>
+            <td><input type="text" disabled="disabled" title="{{item.value}}" ng-model="item.value" /></td>
+            <td ng-show="model.config.useDescription"><label>{{item.description}}</label></td>
+          </tr>
+        </table>
+        <ul class="unstyled">
+            <li>
+                <i class="icon icon-add blue"></i>
+                <a href="#" ng-click="addKeyValue($event)" prevent-default="">
+                    <localize key="general_add" class="ng-isolate-scope ng-scope">Add</localize></a>
+            </li>
+        </ul>
+    </ng-form>
+</div>

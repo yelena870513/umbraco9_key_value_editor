@@ -1,0 +1,72 @@
+﻿<div
+  ng-controller="KeyValueEditorDialogController as vm"
+  class="umb-dialog-body with-footer"
+>
+  <form name="insertkeyvalue_form" novalidate>
+    <umb-editor-view>
+      <umb-editor-header
+        name="'Key Value List Manager'"
+        name-locked="true"
+        hide-alias="true"
+        hide-icon="true"
+        hide-description="true"
+      >
+      <umb-icon icon="icon-edit"></umb-icon>
+      </umb-editor-header>
+
+      <umb-editor-container>
+        <umb-box>
+          <umb-box-content>
+            <umb-control-group label="Key">
+              <input
+                type="text"
+                class="umb-editor"
+                ng-model="model.dialogData.key"
+                ng-disabled="model.dialogData.config.autoGenerateKey"
+                required
+              />
+            </umb-control-group>
+            <umb-control-group label="Value">
+              <input
+                type="text"
+                class="umb-editor"
+                ng-model="model.dialogData.value"
+                required
+              />
+            </umb-control-group>
+            <div ng-show="model.dialogData.config.useDescription">
+              <umb-control-group label="Description (optional)">
+                <input
+                  type="text"
+                  class="umb-editor"
+                  ng-model="model.dialogData.description"
+                />
+              </umb-control-group>
+            </div>
+          </umb-box-content>
+        </umb-box>
+      </umb-editor-container>
+
+      <umb-editor-footer>
+        <umb-editor-footer-content-right>
+          <umb-button
+            type="button"
+            button-style="link"
+            label-key="general_close"
+            shortcut="esc"
+            action="vm.close()"
+          >
+          </umb-button>
+          <umb-button
+            type="button"
+            button-style="action"
+            label-key="general_submit"
+            ng-disabled="!insertkeyvalue_form.$valid"
+            action="vm.submit(model.dialogData)"
+          >
+          </umb-button>
+        </umb-editor-footer-content-right>
+      </umb-editor-footer>
+    </umb-editor-view>
+  </form>
+</div>
