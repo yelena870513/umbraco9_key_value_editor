@@ -1,61 +1,67 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Umbraco9KeyValueList.Models;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Web;
 
 namespace Umbraco9KeyValueList.Converters
 {
-    public class KeyValueEditorValueConverter: IPropertyValueConverter
+    public class KeyValueEditorValueConverter : IPropertyValueConverter
     {
-        /// <summary>
-        /// Value converter class to convert a json key value pairs object
-        /// to a strongly typed key value pairs instance.
-        /// </summary>
-        [PropertyValueType(typeof(Dictionary<string, string>))]
-        [PropertyValueCache(PropertyCacheValue.All, PropertyCacheLevel.Content)]
-        public class KeyValueEditorValueConverter : PropertyValueConverterBase
+        object IPropertyValueConverter.ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
         {
-            /// <summary>
-            /// Method to convert a property value to an instance
-            /// of the key value pairs class.
-            /// </summary>
-            /// <param name="propertyType">The current published property
-            /// type to convert.</param>
-            /// <param name="source">The original property data.</param>
-            /// <param name="preview">True if in preview mode.</param>
-            /// <returns>An instance of the key value pairs class.</returns>
-            public override object ConvertDataToSource(PublishedPropertyType propertyType, object source, bool preview)
+            return inter;
+        }
+
+        object IPropertyValueConverter.ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
+        {
+            if (inter == null)
             {
-                if (source == null)
-                    return null;
-
-                if (UmbracoContext.Current == null)
-                    return null;
-
-                var retval = new Dictionary<string, string>();
-
-                var pairs = JsonConvert.DeserializeObject<KeyValueEditorPairs>(source.ToString());
-                if (pairs == null || pairs.Count < 0)
-                    return retval;
-
-                foreach (var pair in pairs)
-                    retval.Add(pair.Key, pair.Value);
-
-                return retval;
+                return null;
             }
 
-            /// <summary>
-            /// Method to see if the current property type is of type
-            /// key value editor.
-            /// </summary>
-            /// <param name="propertyType">The current property type.</param>
-            /// <returns>True if the current property type of of type
-            /// key value editor.</returns>
-            public override bool IsConverter(PublishedPropertyType propertyType)
+            return inter.ToString();
+        }
+
+        object IPropertyValueConverter.ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview)
+        {
+            if (source == null) return null;
+            try
             {
-                return propertyType.EditorAlias.Equals("Umbraco9KeyValueList");
+                var obj = JsonConvert.DeserializeObject<KeyValueEditorPairs>(source.ToString());
+                return obj;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        PropertyCacheLevel IPropertyValueConverter.GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+        {
+            return PropertyCacheLevel.Element;
+        }
+
+        Type IPropertyValueConverter.GetPropertyValueType(IPublishedPropertyType propertyType)
+        {
+            return typeof(KeyValueEditorPair);
+        }
+
+        bool IPropertyValueConverter.IsConverter(IPublishedPropertyType propertyType)
+        {
+            return propertyType.EditorAlias.Equals("Umbraco9KeyValueList");
+        }
+
+        bool? IPropertyValueConverter.IsValue(object value, PropertyValueLevel level)
+        {
+            switch (level)
+            {
+                case PropertyValueLevel.Source:
+                    return value != null && value is KeyValueEditorPair;
+                default:
+                    throw new NotSupportedException($"Invalid level: {level}.");
             }
         }
     }

@@ -2,9 +2,9 @@
 <umbPackage>
   <files>
     <file>
-      <guid>Umbraco9KeyValueList.dll</guid>
-      <orgPath>/bin</orgPath>
-      <orgName>Umbraco9KeyValueList.dll</orgName>
+      <guid>package.manifest</guid>
+      <orgPath>/App_Plugins/Umbraco9KeyValueList</orgPath>
+      <orgName>package.manifest</orgName>
     </file>
     <file>
       <guid>KeyValueEditorController.js</guid>
