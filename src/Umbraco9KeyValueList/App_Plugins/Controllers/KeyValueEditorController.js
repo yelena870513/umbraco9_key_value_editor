@@ -34,8 +34,6 @@
   }
 
   $scope.editKeyValue = function(item) {
-
-    editorService.open({ template: '/App_Plugins/Umbraco9KeyValueList/Views/KeyValueEditorDialogView.html', show: true, callback: done, dialogData: { key: item.key, value: item.value, description: item.description, config: $scope.cfg } })
     let options = {
       title: 'Key Value List Editor',
       view: '/App_Plugins/Umbraco9KeyValueList/Views/KeyValueEditorDialogView.html',

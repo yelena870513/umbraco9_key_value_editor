@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <ContentTargetFolders>content</ContentTargetFolders>
+    </PropertyGroup>
+
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Company>CITMATEL</Company>
+    <Authors>Yelena Islen San Juan</Authors>
+    <Copyright>Copyright © 2022</Copyright>
+    <Title>Umbraco 9 Key Value List</Title>
+    <Description>Key Value List for Umbraco 9.</Description>
+  </PropertyGroup>
+
+  <!-- Information for the NuGet package -->
+  <PropertyGroup>
+    <PackageId>Umbraco9KeyValueList</PackageId>
+    <PackageTags>Umbraco, Structured Data</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/yelena870513/umbraco9_key_value_editor</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/yelena870513/umbraco9_key_value_editor</RepositoryUrl>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="umbraco\**" />
+      <EmbeddedResource Remove="umbraco\**" />
+      <None Remove="umbraco\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Umbraco.Cms" Version="9.4.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Controllers\KeyValueEditorController.js" />
+    <Content Include="App_Plugins\Controllers\KeyValueEditorDialogController.js" />
+    <Content Include="Package.xml" />
+    <Content Include="App_Plugins\Services\KeyValueEditorConfigService.js" />
+    <Content Include="App_Plugins\Styles\KeyValueEditor.css" />
+    <Content Include="App_Plugins\Views\KeyValueEditorDialogView.html" />
+    <Content Include="App_Plugins\Views\KeyValueEditorView.html" />
+  </ItemGroup>
+
+  <!-- Include the targets file -->
+  <ItemGroup>
+    <Content Include="../build/$(AssemblyName).targets" PackagePath="build\$(AssemblyName).targets" />
+  </ItemGroup>
+
+  <!-- Generate XML documentation -->
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!-- Include package icon for NuGet -->
+  <ItemGroup>
+    <Content Include="../build/icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

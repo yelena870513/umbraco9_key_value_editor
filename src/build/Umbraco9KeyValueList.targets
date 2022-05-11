@@ -1,0 +1,26 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Umbraco9KeyValueListContentFilesPath>$(MSBuildThisFileDirectory)..\content\App_Plugins\Umbraco9KeyValueList\**\*.*</Umbraco9KeyValueListContentFilesPath>
+  </PropertyGroup>
+
+  <Target Name="CopyUmbraco9KeyValueListAssets" BeforeTargets="Build">
+    <ItemGroup>
+      <Umbraco9KeyValueListContentFiles Include="$(Umbraco9KeyValueListContentFilesPath)" />
+    </ItemGroup>
+    <Message Text="Copying Umbraco9KeyValueList files: $(Umbraco9KeyValueListContentFilesPath) - #@(Umbraco9KeyValueListContentFiles->Count()) files"  Importance="high" />
+    <Copy
+      SourceFiles="@(Umbraco9KeyValueListContentFiles)"
+      DestinationFiles="@(Umbraco9KeyValueListContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Umbraco9KeyValueList\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="ClearUmbraco9KeyValueListAssets" BeforeTargets="Clean">
+    <ItemGroup>
+      <Umbraco9KeyValueListDir Include="$(MSBuildProjectDirectory)\App_Plugins\Umbraco9KeyValueList\" />
+    </ItemGroup>
+    <Message Text="Clear old Umbraco9KeyValueList files"  Importance="high" />
+    <RemoveDir Directories="@(Umbraco9KeyValueListDir)"  />
+  </Target>
+
+</Project>
